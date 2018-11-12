@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import spacy
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 nlp = spacy.load('en_core_web_md')
+nlp.Defaults.stop_words.add('pron')
+
+
 from spacy.lang.en.stop_words import STOP_WORDS
 import os,re,pickle
 # plt.style.use('bmh')
@@ -46,7 +49,6 @@ if __name__ == '__main__':
     plot_df['rating'] = pd.to_numeric(plot_df['rating'], errors='coerce')
     plot_df.dropna(inplace=True)
     plot_df['plot'] = plot_df['plot'].apply(lemmatize_string)
-    lem_df = plot_df.filter(['plot', 'rating'], axis=1)
-    lem_df.to_csv('lem_plot_df')
-
+    lem_df = plot_df.filter(['title', 'plot', 'rating'], axis=1)
+    lem_df.to_csv('../data/lem_plot_df')
     # mean_len = plot_df['plot'].str.len().groupby(plot_df['plot']).mean()
