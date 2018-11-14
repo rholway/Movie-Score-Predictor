@@ -55,7 +55,7 @@ if __name__ == '__main__':
                                  stop_words=STOP_WORDS,
                                  ngram_range=(1,2))
     vectors = vectorizer.fit_transform(X_train).toarray()
-    test_vectors = vectorizer.fit_transform(X_test).toarray()
+    test_vectors = vectorizer.transform(X_test).toarray()
 
     mnb = MultinomialNB()
     mnb.fit(vectors, y_train)
