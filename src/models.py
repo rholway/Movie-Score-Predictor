@@ -97,13 +97,20 @@ def rf_score_plot(randforest, X_train, y_train, X_test, y_test):
                                                         'Random Forest Test')
 
 if __name__ == '__main__':
-    df = pd.read_csv('../data/lem_plot_df')
+    # on plot df
+    # df = pd.read_csv('../data/lem_plot_df')
+    # y = df.pop('rating')
+    # X = df['plot']
+
+    # on new lem df
+    df = pd.read_csv('../data/lem_scripts_IV')
     y = df.pop('rating')
-    X = df['plot']
+    X = df['script']
+
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 
     # create tfidf vector on plots lem df
-    tfidf_vectorizer = TfidfVectorizer(max_features=1000,
+    tfidf_vectorizer = TfidfVectorizer(max_features=5000,
                                     stop_words=STOP_WORDS,
                                     ngram_range=(1,2))
 
@@ -115,22 +122,26 @@ if __name__ == '__main__':
     X_test_tfidf = tfidf_vectorizer.transform(X_test).todense()
     X_test_tfidf_feature_names = tfidf_vectorizer.get_feature_names()
 
-    rf = RandomForestRegressor(n_estimators=100, n_jobs=-1, random_state=1)
+    # rf = RandomForestRegressor(n_estimators=100, n_jobs=-1, random_state=1)
 
-    gdbr = GradientBoostingRegressor(learning_rate=0.1, loss='ls',
-                                     n_estimators=100, random_state=1)
+    # gdbr = GradientBoostingRegressor(learning_rate=0.1, loss='ls',
+                                     # n_estimators=100, random_state=1)
 
-    abr = AdaBoostRegressor(DecisionTreeRegressor(), learning_rate=0.1,
+    # abr = AdaBoostRegressor(DecisionTreeRegressor(), learning_rate=0.1,
+                            # loss='linear', n_estimators=100, random_state=1)
+
+    abr_lrlower = AdaBoostRegressor(DecisionTreeRegressor(), learning_rate=0.01,
                             loss='linear', n_estimators=100, random_state=1)
 
-    gdbr_lr1 = GradientBoostingRegressor(learning_rate=1.0, loss='ls',
-                                     n_estimators=100, random_state=1)
+    # gdbr_lr1 = GradientBoostingRegressor(learning_rate=1.0, loss='ls',
+    #                                  n_estimators=100, random_state=1)
 
     k = 10 # number of folds in the cross-validation
     print("\nScript output.")
     print("Using {0} folds in cross validation.".format(k))
-    print("\n4) Train MSE and R2 for the 3 models")
+    print("\n Train MSE and R2 for the 3 models")
     # cross_val(rf, X_train_tfidf, y_train, k)
-    cross_val(gdbr, X_train_tfidf, y_train, k)
-    cross_val(gdbr_lr1, X_train_tfidf, y_train, k)
+    # cross_val(gdbr, X_train_tfidf, y_train, k)
+    # cross_val(gdbr_lr1, X_train_tfidf, y_train, k)
     # cross_val(abr, X_train_tfidf, y_train, k)
+    cross_val(abr_lrlower, X_train_tfidf, y_train, k)

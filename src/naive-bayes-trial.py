@@ -43,11 +43,11 @@ def get_top_values(lst, n, labels):
 
 
 if __name__ == '__main__':
-    df = pd.read_csv('../data/lem_plot_df')
+    df = pd.read_csv('../data/lem_scripts_IV')
     df['r>75'] = df.apply(f, axis=1)
     df.drop(['title', 'rating'], axis=1, inplace=True)
     y = df.pop('r>75')
-    X = df['plot']
+    X = df['script']
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 
     # DO TFIDF TRANSFORMATION

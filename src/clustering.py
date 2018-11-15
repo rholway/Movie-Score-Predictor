@@ -26,7 +26,7 @@ def top_tokens_in_topic(topic_n, n_tokens, H):
 
 def top_movies_in_topic(topic_n, n_movies, W):
     top_movies = W.iloc[:,topic_n].sort_values(ascending=False).index[:n_movies]
-    return sc_df['title'][top_movies]
+    return new_sc_df['title'][top_movies]
 
 # elbow plot in plots.py script
 
@@ -80,13 +80,19 @@ if __name__ == '__main__':
     # H_te = pd.DataFrame(H_te, index = topics, columns = test_tfidf_feature_names)
     # W_te,H_te = (np.around(x,2) for x in (W_te, H_te))
 
-    # scipts
-    sc_df = pd.read_csv('../data/lem_scripts_df')
-    y = sc_df.pop('rating')
-    X = sc_df['script']
+    # first lem df scipts
+    # sc_df = pd.read_csv('../data/lem_scripts_df')
+    # y = sc_df.pop('rating')
+    # X = sc_df['script']
+
+    # updated lemmatized df of scripts
+    new_sc_df = pd.read_csv('../data/lem_scripts_IV')
+    y = new_sc_df.pop('rating')
+    X = new_sc_df['script']
+
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 
-    tfidf_vectorizer = TfidfVectorizer(max_features=1000,
+    tfidf_vectorizer = TfidfVectorizer(max_features=5000,
                                     stop_words=STOP_WORDS,
                                     ngram_range=(1,2))
     k = 10 # number of topics
