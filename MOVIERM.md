@@ -23,7 +23,7 @@ A data frame was created of movie titles, plot summaries, and Rotten Tomato scor
 
 Lowercase all words, strip all punctuation and unicode from plot summaries, remove all stop words, then use spaCy to lemmatize words to tokens.
 
-Quick intro to [lemmatize](<iframe width="560" height="315" src="https://www.youtube.com/embed/_K-L9uhsBLM?start=51" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>)
+Quick intro to [lemmatization](<"https://www.youtube.com/embed/_K-L9uhsBLM?start=51">)
 
 
 
@@ -118,13 +118,13 @@ Best model was Gradient Boosting Regressor.  Ran Gradient Boosting Regressor mod
 with train and test data.
 
 
-#### Learning Rate 0.1
+### Learning Rate 0.1
 ![Training vs Test data - GBR - Plots](images/plot_gdbr_lr0.1.png)
 
-#### Learning Rate 1.0
+### Learning Rate 1.0
 ![Training vs Test data - GBR - Plots](images/plot_gdbr_lr1.png)
 
-### Now with Movie Scripts!
+## Now with Movie Scripts!
 
 | Movie Title        | Script          | RT%  |
 | ------------- |:-------------:| -----:|
@@ -136,18 +136,18 @@ Obtained 1,127 movie scripts from The Internet Movie Script Database (IMSDb).
 
 ![Hist of Len of Scripts](images/SCRPLENHIST.png)
 
-###### Average script length: 196,823 words | Standard Deviation: 78,889 words
-###### Normally distributed - but it looks like some movies did not have entire scripts (or, very short scripts).  Lets get rid of all movies with under 10,000 words.
+##### Average script length: 196,823 words | Standard Deviation: 78,889 words
+##### Normally distributed - but it looks like some movies did not have entire scripts (or, very short scripts).  Lets get rid of all movies with under 10,000 words.
 
 ![Hist of Len of Scripts altered](images/SCRPLENHISTALT.png)
 
-###### Average script length: 208,841 words | Standard Deviation: 64,013 words
+##### Average script length: 208,841 words | Standard Deviation: 64,013 words
 
-###### Now have 1,062 movie scripts.  Let's see how the ratings are distributed.
+##### Now have 1,062 movie scripts.  Let's see how the ratings are distributed.
 
 ![Hist of Movie Ratings](images/hist-of-movie-script-ratings.png)
 
-###### Look at the length of the script vs. the rating of the movie
+##### Look at the length of the script vs. the rating of the movie
 
 ![Scatter of Words vs. Ratings](images/SCATTERRATINGVSLENGTH.png)
 
@@ -194,7 +194,7 @@ Adding these words could have an affect on the TF-IDF, and the resulting model. 
 
 ![Hist of Len of Scripts](images/LEMTOKENSHISTLENG.png)
 
-###### Average length: 10,137 words | Standard Deviation: 6,221 words
+##### Average length: 10,137 words | Standard Deviation: 6,221 words
 
 ![Hist of Len of Scripts](images/SCATTERRATINGVSLENGTHWTOKENS.png)
 
@@ -220,11 +220,13 @@ Try with a lower learning rate
 
 Create two classes: movies above a 75% RT score (class 1), and movies at or below a 75% RT score (class 0).  For every word in the TF-IDF, calculate the probability the word belong to class 1 and class 0.  Based on the MLE of a the words in the movie script  occurring in each class, naive bayes predicts what class the movie script belongs in. Naive Bayes predicted with an accuracy of 57%.  Not very good.
 
-###### Top words by total tf-idf score: huh, clothe, whatev, cmon, 20, 30, 10, manage, 50, pauls
+##### Top words by total tf-idf score:
+
+##### huh, clothe, whatev, cmon, 20, 30, 10, manage, 50, pauls
 
 ## Conclusions
 
-###### No, you cannot predict a Rotten Tomatoes score of a movie based on the script.
-###### Adding more features/tokens to the TF-IDF (used 5,000) would help to make each of the scripts more unique from one another.  
-###### Considering how long a a movie script is (average of about 200,000 words), using only 5,000 might not be enough.
-###### Natural Language Processing has a difficult time analyzing semantics - and movies scripts rely on this.
+##### No, you cannot predict a Rotten Tomatoes score of a movie based on the script.
+##### Adding more features/tokens to the TF-IDF (used 5,000) would help to make each of the scripts more unique from one another.  
+##### Considering how long a a movie script is (average of about 200,000 words), using only 5,000 might not be enough.
+##### Natural Language Processing has a difficult time analyzing semantics - and movies scripts rely on this.
