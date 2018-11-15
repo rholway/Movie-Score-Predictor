@@ -8,7 +8,7 @@ def find_len_of_script(str):
 
 
 if __name__ == '__main__':
-    df = pd.read_csv('../data/lem_scripts_df')
+    df = pd.read_csv('../data/scripts_df_II')
     df['script'] = df['script'].apply(find_len_of_script)
     df = df.query('script > 10000')
 
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     # ax.set_ylabel('Movies', fontsize=14)
     # ax.set_title('Histogram of Movie Script Length', fontsize=20)
     # # plt.show()
-    # plt.savefig('../images/hist-of-movie-script-lengths-altered')
+    # plt.savefig('../images/HISTSCRPLEN')
     # plt.close()
 
     # fig, ax = plt.subplots()
@@ -40,5 +40,5 @@ if __name__ == '__main__':
     ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x/1000))))
     ax.set_title('Scatter Plot of Ratings vs. # of Words', fontsize=20)
     # plt.show()
-    plt.savefig('../images/scatter-length-vs-ratings')
+    plt.savefig('../images/scatterSCATTER')
     plt.close()
