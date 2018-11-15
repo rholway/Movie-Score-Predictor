@@ -103,7 +103,7 @@ if __name__ == '__main__':
     # X = df['plot']
 
     # on new lem df
-    df = pd.read_csv('../data/lem_scripts_IV')
+    df = pd.read_csv('../data/lem_scripts_df_NEW')
     y = df.pop('rating')
     X = df['script']
 
@@ -139,9 +139,9 @@ if __name__ == '__main__':
     k = 10 # number of folds in the cross-validation
     print("\nScript output.")
     print("Using {0} folds in cross validation.".format(k))
-    print("\n Train MSE and R2 for the 3 models")
+    print("\n Train MSE and R2 for gdbr and abr models")
     # cross_val(rf, X_train_tfidf, y_train, k)
-    # cross_val(gdbr, X_train_tfidf, y_train, k)
+    cross_val(gdbr, X_train_tfidf, y_train, k)
     # cross_val(gdbr_lr1, X_train_tfidf, y_train, k)
-    # cross_val(abr, X_train_tfidf, y_train, k)
-    cross_val(abr_lrlower, X_train_tfidf, y_train, k)
+    cross_val(abr, X_train_tfidf, y_train, k)
+    # cross_val(abr_lrlower, X_train_tfidf, y_train, k)

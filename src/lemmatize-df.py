@@ -30,6 +30,13 @@ def lemmatize_string(doc, stop_words=STOP_WORDS):
     added_stops = [word for word in doc.split() if word[:].isupper()]
     added_stops = map(lambda x: x.lower(), added_stops)
     stop_words |= set(added_stops)
+    more_stops = ['look', 'man', 'int', 'ext', 'hand', 'come', 'day', 'turn', 'night',
+    'head', 'continue', 'cut', 'contd', 'cont', 'continuous', 'okay', 'v0', 'sit', 'charlies',
+    '81899', 'joe', 'joes', 'intday', 'intnight', '1', '2', '3', '4', '5', '6', '7',
+    '8', '9', 'cut to', 'action', 'beat', 'character', 'close on', 'crawl', 'dialog',
+    'fade to', 'fade', 'close', 'flashback', 'flash cut', 'pan', 'pov', 'push in',
+    'shot']
+    stop_words |= set(more_stops)
 
         # .append([word for word in doc if word[0].isupper()])
     # stop_words = STOP_WORDS
@@ -76,11 +83,11 @@ if __name__ == '__main__':
     # for movie scripts
     script_df = pd.read_csv('../data/scripts_df_II')
     script_df['script'] = script_df['script'].apply(lemmatize_string)
-    script_df.to_csv('../data/lem_scripts_df_II')
+    script_df.to_csv('../data/lem_scripts_df_NEW')
 
     # trial caps df
-    # d = {'col1': [" here's movie SCRIPT with CHARACTERS available",
-    # "SCENE one is with youknowwho CUT"]
+    # d = {'col1': [" here's continue movie SCRIPT with contd CHARACTERS available",
+    # "SCENE one is with youknowwho CUT int ext cont "]
     # , 'col2': [3, 4]}
     # trial_df = pd.DataFrame(data=d)
     # trial_df['col1'] = trial_df['col1'].apply(lemmatize_string)

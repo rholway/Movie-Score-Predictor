@@ -78,9 +78,8 @@ if __name__ == '__main__':
 
 
 
-# stop_words = ['look', 'man', 'int', 'ext', 'hand', 'come', 'day', 'turn', 'night',
-# 'head',
-#
+
+
 # 'jack', 'david', 'elizabeth', 'frank', 'danny', 'kate', 'look', 'stephen',
 # 'tom', 'bill',
 #
@@ -230,6 +229,12 @@ if __name__ == '__main__':
 # 855            Broken-Embraces
 # 648        To-Sleep-with-Anger
 # '''
+
+
+stop_words = ['look', 'man', 'int', 'ext', 'hand', 'come', 'day', 'turn', 'night',
+'head', 'continue', 'cut', 'contd', 'continuous', 'okay', 'v0', 'sit', 'charlies',
+'81899', 'joe', 'joes', 'intday', 'intnight', '1', '2', '3', '4', '5', '6', '7',
+'8', '9']
 
 topic_0
 'contd', 'contd contd', 'okay', 'contd okay', 'v0'

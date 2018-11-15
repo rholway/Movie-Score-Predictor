@@ -9,6 +9,10 @@ from sklearn.decomposition import NMF
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
+
+def get_len(str):
+    return len(str)
+
 def fit_nmf(k):
     nmf = NMF(n_components=k)
     nmf.fit(tfidf)
@@ -31,7 +35,7 @@ def top_movies_in_topic(topic_n, n_movies, W):
 # elbow plot in plots.py script
 
 if __name__ == '__main__':
-    # plots
+    # plot summaries
     # df = pd.read_csv('../data/lem_plot_df')
     # y = df.pop('rating')
     # X = df['plot']
@@ -86,7 +90,21 @@ if __name__ == '__main__':
     # X = sc_df['script']
 
     # updated lemmatized df of scripts
-    new_sc_df = pd.read_csv('../data/lem_scripts_IV')
+    # new_sc_df = pd.read_csv('../data/lem_scripts_IV')
+    # y = new_sc_df.pop('rating')
+    # X = new_sc_df['script']
+
+    # once again, updated lemmatized df of scripts with more stop words
+    new_sc_df = pd.read_csv('../data/lem_scripts_df_NEW')
+    new_sc_df.dropna(inplace=True)
+    new_sc_df.drop('Unnamed: 0.1', axis=1, inplace=True)
+    new_sc_df.rename(columns={'Unnamed: 0':'len'}, inplace=True)
+    new_sc_df['len'] = new_sc_df['script'].apply(get_len)
+    new_sc_df = new_sc_df.query('len > 1000')
+    # it doesn't look like these three scripts were lemmatized  - i think foreign language
+    new_sc_df.drop(new_sc_df.loc[new_sc_df['len']==117849].index, inplace=True)
+    new_sc_df.drop(new_sc_df.loc[new_sc_df['len']==95413].index, inplace=True)
+    new_sc_df.drop(new_sc_df.loc[new_sc_df['len']==78897].index, inplace=True)
     y = new_sc_df.pop('rating')
     X = new_sc_df['script']
 
@@ -99,7 +117,7 @@ if __name__ == '__main__':
     topics = ['latent_topic_{}'.format(i) for i in range(k)]
     nmf = NMF(n_components = k)
 
-    # full tfidf plots
+    # full tfidf scripts
     full_tfidf = tfidf_vectorizer.fit_transform(X).todense()
     full_tfidf_feature_names = tfidf_vectorizer.get_feature_names()
     full_titles = X.index

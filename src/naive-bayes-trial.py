@@ -43,6 +43,7 @@ def get_top_values(lst, n, labels):
 
 
 if __name__ == '__main__':
+    # trial with lem
     df = pd.read_csv('../data/lem_scripts_IV')
     df['r>75'] = df.apply(f, axis=1)
     df.drop(['title', 'rating'], axis=1, inplace=True)
@@ -61,3 +62,8 @@ if __name__ == '__main__':
     mnb.fit(vectors, y_train)
     print('Accuracy:', mnb.score(test_vectors, y_test))
     sklearn_predictions = mnb.predict(test_vectors)
+
+    # mnb = MultinomialNB()
+    # mnb.fit(X_train, y_train)
+    # print('Accuracy:', mnb.score(X_test, y_test))
+    # sklearn_predictions = mnb.predict(y_test)

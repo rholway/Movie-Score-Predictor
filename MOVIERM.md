@@ -23,6 +23,10 @@ A data frame was created of movie titles, plot summaries, and Rotten Tomato scor
 
 Lowercase all words, strip all punctuation and unicode from plot summaries, remove all stop words, then use spaCy to lemmatize words to tokens.
 
+Quick intro to [lemmatize](<iframe width="560" height="315" src="https://www.youtube.com/embed/_K-L9uhsBLM?start=51" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>)
+
+
+
 Before  | After
 ------------- | -------------
 'Jordan Belfort is a Long Island penny stockbroker who served 22 months in prison for defrauding investors in a massive 1990s securities scam that involved widespread corruption on Wall Street and in the corporate banking world, including shoe designer Steve Madden.'  | 'jordan belfort long island penny stockbroker serve 22 month prison defraud investor massive 1990s security scam involve widespread corruption wall street corporate banking world include shoe designer steve madden'
@@ -39,17 +43,6 @@ movie 1  | 0.0 | 0.4 | 0.1
 movie 2  | 0.5 | 0.0 | 0.04
 
 Use L2 norm to normalize term frequency.  This will account for different size documents.  Use idf to account for dominant terms across documents (if some terms are used frequently across multiple documents, the inverse will make the words less important, rather than more important).  The maximum features for these tf-idfs were 5,000, and ngram_range was (1,2)
-
-### Naive Bayes: Movie Plots
-
-Created a binary classification model using Naive Bayes.  Categorizes movies greater than 75% as 1 (540 of 1096 movies), and movies 75% or lower classified as 0 (556 of 1096 movies).
-
-title  | token 0  | token 1  | token 2  | RT% | Class
--------- | ----| ----| ----- | -------- | --------
-movie 1  | 0.0 | 0.4 | 0.1   | 45.0  | 0
-movie 2  | 0.5 | 0.0 | 0.04  | 76.0  | 1
-
-Naive Bayes predicted the classification of a movie (whether it was greater than 75% or 75% or less based on Rotten Tomatoes scores) based on the tf-idf of the plot with 56% accuracy.  Not very good.  Difficult to find signal.
 
 ### Clustering: Non-Negative Matrix Factorization - Movie Plots
 
@@ -88,6 +81,17 @@ topic number  | Train - top 5 tokens  | Test - top 5 titles
 7  | school, high, high school, student, teacher |  Tremors, Mr. Deeds Goes to Town, Mumford, Super 8, Silver Bullet
 8  | jack, casino, elizabeth, strike, capitan  |  vegas, las, las vegas, sex, ben
 9  | story, time, true tell, true story  |  story, life, true, frank, meet -->
+
+### Naive Bayes: Movie Plots
+
+Created a binary classification model using Naive Bayes.  Categorizes movies greater than 75% as 1 (540 of 1096 movies), and movies 75% or lower classified as 0 (556 of 1096 movies).
+
+title  | token 0  | token 1  | token 2  | RT% | Class
+-------- | ----| ----| ----- | -------- | --------
+movie 1  | 0.0 | 0.4 | 0.1   | 45.0  | 0
+movie 2  | 0.5 | 0.0 | 0.04  | 76.0  | 1
+
+Naive Bayes predicted the classification of a movie (whether it was greater than 75% or 75% or less based on Rotten Tomatoes scores) based on the tf-idf of the plot with 56% accuracy.  Not very good.  Difficult to find signal.
 
 ### Regression Models: Plots
 
@@ -175,7 +179,7 @@ topic number  | top 5 tokens  | top 5 titles
 The highest weighted tokens in the documents appear to be the names of the characters
 in the scripts, as well as script specific words (script, continue, int, day, etc.).  We can try to add stop words.  It would be difficult to go through every script and add each character to the stop words list.
 
-Let's have a look at the script to investigate... 
+Let's have a look at the script to investigate...
 
 ![Script snipped](images/script-snippet.png)
 
@@ -216,7 +220,9 @@ Try with a lower learning rate
 
 Create two classes: movies above a 75% RT score (class 1), and movies at or below a 75% RT score (class 0).  For every word in the TF-IDF, calculate the probability the word belong to class 1 and class 0.  Based on the MLE of a the words in the movie script  occurring in each class, naive bayes predicts what class the movie script belongs in. Naive Bayes predicted with an accuracy of 57%.  Not very good.
 
-### Conclusions
+###### Top words by total tf-idf score: huh, clothe, whatev, cmon, 20, 30, 10, manage, 50, pauls
+
+## Conclusions
 
 ###### No, you cannot predict a Rotten Tomatoes score of a movie based on the script.
 ###### Adding more features/tokens to the TF-IDF (used 5,000) would help to make each of the scripts more unique from one another.  
