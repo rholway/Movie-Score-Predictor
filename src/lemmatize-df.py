@@ -38,18 +38,6 @@ def lemmatize_string(doc, stop_words=STOP_WORDS):
     'shot']
     stop_words |= set(more_stops)
 
-        # .append([word for word in doc if word[0].isupper()])
-    # stop_words = STOP_WORDS
-    # added_stops = [word for word in doc if word[:].isupper()]
-    # added_stops = set(added_stops)
-    # stop_words = stop_words.update(added_stops)
-    # STOP_WORDS.add({set([word for word in doc if word[:].isupper()])})
-    # STOP_WORDS.update({'daa'})
-
-    # for word in doc.split():
-    #
-    #     if word[:].isupper():
-    #         stop_words.append(word)
 
     # First remove punctuation form string
     PUNCT_DICT = {ord(punc): None for punc in punctuation}

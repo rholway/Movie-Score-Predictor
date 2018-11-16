@@ -224,6 +224,8 @@ Create two classes: movies above a 75% RT score (class 1), and movies at or belo
 
 #### huh, clothe, whatev, cmon, 20, 30, 10, manage, 50, pauls
 
+![ROCPLOT](images/ROCPLOT.png)
+
 ## Conclusions
 
 #### No, you cannot predict a Rotten Tomatoes score of a movie based on the script.

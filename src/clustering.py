@@ -8,6 +8,7 @@ from spacy.lang.en.stop_words import STOP_WORDS
 from sklearn.decomposition import NMF
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def get_len(str):
@@ -113,7 +114,7 @@ if __name__ == '__main__':
     tfidf_vectorizer = TfidfVectorizer(max_features=5000,
                                     stop_words=STOP_WORDS,
                                     ngram_range=(1,2))
-    k = 10 # number of topics
+    k = 3 # number of topics
     topics = ['latent_topic_{}'.format(i) for i in range(k)]
     nmf = NMF(n_components = k)
 
@@ -128,8 +129,23 @@ if __name__ == '__main__':
     H_f = pd.DataFrame(H_f, index = topics, columns = full_tfidf_feature_names)
     W_f,H_f = (np.around(x,2) for x in (W_f, H_f))
 
+    x = W_f.iloc[:,0]
+    y = W_f.iloc[:,1]
+    z = W_f.iloc[:,2]
 
-    # train tfidf plots
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.scatter(x, y, z, color='b')
+
+    ax.set_xlabel('Topic 0')
+    ax.set_ylabel('Topic 1')
+    ax.set_zlabel('Topic 2')
+
+    plt.show()
+
+
+    # # train tfidf plots
     # train_tfidf = tfidf_vectorizer.fit_transform(X_train).todense()
     # train_tfidf_feature_names = tfidf_vectorizer.get_feature_names()
     # train_titles = X_train.index
@@ -139,8 +155,8 @@ if __name__ == '__main__':
     # W_tr = pd.DataFrame(W_tr, index = train_titles, columns = topics)
     # H_tr = pd.DataFrame(H_tr, index = topics, columns = train_tfidf_feature_names)
     # W_tr,H_tr = (np.around(x,2) for x in (W_tr, H_tr))
-
-    # test tfidf plots
+    #
+    # # test tfidf plots
     # test_tfidf = tfidf_vectorizer.transform(X_test).todense()
     # test_tfidf_feature_names = tfidf_vectorizer.get_feature_names()
     # test_titles = X_test.index
