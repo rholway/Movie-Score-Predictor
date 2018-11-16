@@ -230,5 +230,5 @@ Create two classes: movies above a 75% RT score (class 1), and movies at or belo
 
 #### No, you cannot predict a Rotten Tomatoes score of a movie based on the script.
 #### Adding more features/tokens to the TF-IDF (used 5,000) would help to make each of the scripts more unique from one another.  
-#### Considering how long a a movie script is (average of about 200,000 words), using only 5,000 might not be enough.
+#### Considering how long a movie script is (average of about 200,000 words), using only 5,000 might not be enough.
 #### Natural Language Processing has a difficult time analyzing semantics - and movies scripts rely on this.
